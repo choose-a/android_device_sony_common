@@ -23,6 +23,13 @@ ifeq ($(filter-out loire tone yoshino,$(PRODUCT_PLATFORM)),)
 TARGET_KERNEL_SOURCE := kernel/sony/msm
 endif
 
+# Headers path
+TARGET_SPECIFIC_HEADER_PATH := $(COMMON_PATH)/include
+
+# Override the default android_filesystem_config.h
+TARGET_ANDROID_FILESYSTEM_CONFIG_H := \
+    $(COMMON_PATH)/include/private/android_filesystem_config.h
+
 # Enforcing SELinux
 BOARD_USE_ENFORCING_SELINUX := false
 
