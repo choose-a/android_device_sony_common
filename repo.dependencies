@@ -1,0 +1,56 @@
+[
+  {
+    "remote":       "choose-a",
+    "repository":   "choose-a/android_device_sony_common-init",
+    "target_path":  "device/sony/common-init",
+    "revision":     "choose-7.1"
+  },
+  {
+    "remote":       "choose-a",
+    "repository":   "choose-a/android_hardware_sony_dataservices",
+    "target_path":  "hardware/sony/dataservices",
+    "revision":     "choose-7.1"
+  },
+  {
+    "remote":       "choose-a",
+    "repository":   "choose-a/android_hardware_sony_thermanager",
+    "target_path":  "hardware/sony/thermanager",
+    "revision":     "choose-7.1"
+  },
+  {
+    "remote":       "choose-a",
+    "repository":   "choose-a/android_hardware_sony_timekeep",
+    "target_path":  "hardware/sony/timekeep",
+    "revision":     "choose-7.1"
+  },
+  {
+    "remote":       "choose-a",
+    "repository":   "choose-a/android_hardware_sony_macaddrsetup",
+    "target_path":  "hardware/sony/macaddrsetup",
+    "revision":     "choose-7.1"
+  },
+  {
+    "remote":       "choose-a",
+    "repository":   "choose-a/android_device_sony_sepolicy",
+    "target_path":  "device/sony/sepolicy",
+    "revision":     "choose-7.1"
+  },
+  {
+    "remote":       "choose-a",
+    "repository":   "choose-a/android_hardware_sony_location",
+    "target_path":  "hardware/sony/location",
+    "revision":     "choose-7.1"
+  },
+  {
+    "remote":       "choose-a",
+    "repository":   "choose-a/android_packages_apps_ExtendedSettings",
+    "target_path":  "packages/apps/ExtendedSettings",
+    "revision":     "choose-7.1"
+  },
+  {
+    "remote":       "choose-a",
+    "repository":   "choose-a/android_packages_apps_FMRadio",
+    "target_path":  "packages/apps/FMRadio",
+    "revision":     "choose-7.1"
+  }
+]
