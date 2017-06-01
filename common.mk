@@ -143,7 +143,7 @@ PRODUCT_PACKAGES += \
 
 # Charger
 PRODUCT_PACKAGES += \
-    omni_charger_res_images
+    charger_res_images
 
 # AOSP Packages
 PRODUCT_PACKAGES += \
