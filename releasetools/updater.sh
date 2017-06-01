@@ -20,9 +20,9 @@ set -e
 
 # write logs to /tmp
 set_log() {
-    mkdir -p /tmp/omni;
-    rm -rf /tmp/omni/"${1}";
-    exec >> /tmp/omni/"${1}" 2>&1;
+    mkdir -p /tmp/choose-a;
+    rm -rf /tmp/choose-a/"${1}";
+    exec >> /tmp/choose-a/"${1}" 2>&1;
 }
 
 # set log

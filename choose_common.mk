@@ -23,11 +23,6 @@ COMMON_PATH := device/sony/common
 # Common from upstream
 $(call inherit-product, $(COMMON_PATH)/common.mk)
 
-# cryptfs hw
-TARGET_CRYPTFS_HW_PATH := $(COMMON_PATH)/cryptfs_hw
-PRODUCT_PACKAGES += \
-    libcryptfs_hw
-
 # Variant linking script
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/releasetools/updater.sh:utilities/updater.sh
@@ -42,4 +37,4 @@ PRODUCT_SYSTEM_PROPERTY_BLACKLIST := \
     ro.product.device
 
 # Omni custom config
-$(call inherit-product, vendor/omni/config/common.mk)
+$(call inherit-product, vendor/choose-a/config/common.mk)
