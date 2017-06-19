@@ -100,10 +100,23 @@ display-hal := hardware/qcom/display/msm8998
 media-hal := hardware/qcom/media/msm8998
 endif
 
+ifneq ($(filter tone,$(PRODUCT_PLATFORM)),)
+display-hal := hardware/qcom/display/msm8996
+media-hal := hardware/qcom/media/msm8996
+endif
+
+ifeq ($(TARGET_QCOM_DISPLAY_VARIANT),)
 include $(display-hal)/Android.mk
-include $(call all-makefiles-under,$(audio-hal))
-include $(call all-makefiles-under,$(gps-hal))
+endif
+ifeq ($(TARGET_QCOM_MEDIA_VARIANT),)
 include $(call all-makefiles-under,$(media-hal))
+endif
+ifeq ($(TARGET_QCOM_AUDIO_VARIANT),)
+include $(call all-makefiles-under,$(audio-hal))
+endif
+ifeq ($(USE_DEVICE_SPECIFIC_GPS),)
+include $(call all-makefiles-under,$(gps-hal))
+endif
 
 ifeq ($(BOARD_HAVE_BLUETOOTH_QCOM),true)
 ifneq ($(filter rhine,$(PRODUCT_PLATFORM)),)
