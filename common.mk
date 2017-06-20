@@ -165,8 +165,8 @@ PRODUCT_PACKAGES += \
     ExtendedSettings
 
 # For android_filesystem_config.h
-PRODUCT_PACKAGES += \
-    fs_config_files
+#PRODUCT_PACKAGES += \
+#    fs_config_files
 
 # librqbalance
 PRODUCT_PACKAGES += \
