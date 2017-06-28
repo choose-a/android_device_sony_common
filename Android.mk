@@ -100,11 +100,6 @@ display-hal := hardware/qcom/display/msm8998
 media-hal := hardware/qcom/media/msm8998
 endif
 
-ifneq ($(filter tone,$(PRODUCT_PLATFORM)),)
-display-hal := hardware/qcom/display/msm8996
-media-hal := hardware/qcom/media/msm8996
-endif
-
 ifeq ($(TARGET_QCOM_DISPLAY_VARIANT),)
 include $(display-hal)/Android.mk
 endif
