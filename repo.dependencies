@@ -3,7 +3,7 @@
     "remote":       "choose-a",
     "repository":   "choose-a/android_device_sony_common-init",
     "target_path":  "device/sony/common-init",
-    "revision":     "choose-7.1"
+    "revision":     "choose-7.1-legacy"
   },
   {
     "remote":       "choose-a",
