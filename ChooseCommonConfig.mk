@@ -18,6 +18,9 @@ COMMON_PATH := device/sony/common
 # Also use headers from kernel during build process
 TARGET_COMPILE_WITH_MSM_KERNEL := true
 
+# Common kernel source
+TARGET_KERNEL_SOURCE := kernel/sony/msm
+
 # Enforcing SELinux
 BOARD_USE_ENFORCING_SELINUX := true
 
