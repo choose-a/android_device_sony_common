@@ -238,4 +238,7 @@
         <item>A_GLONASS_POS_PROTOCOL_SELECT=2</item>
     </string-array>
 
+    <!-- Dream of notifications -->
+    <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
+    <bool name="config_dozeAfterScreenOff">true</bool>
 </resources>
