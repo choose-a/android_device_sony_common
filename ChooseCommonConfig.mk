@@ -37,4 +37,4 @@ BOARD_DISABLE_FMRADIO_LIBJNI := true
 
 # Common config
 include $(COMMON_PATH)/CommonConfig.mk
-#include $(COMMON_PATH)/twrp.mk
+include $(COMMON_PATH)/twrp.mk
