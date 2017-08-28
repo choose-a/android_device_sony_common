@@ -119,6 +119,7 @@ PRODUCT_PACKAGES += \
     p2p_supplicant.conf \
     hostapd \
     libwpa_client \
+    wificond \
     wpa_supplicant \
     wpa_supplicant.conf
 
@@ -318,3 +319,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # sdcardFS
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
+
+$(call inherit-product, device/sony/common/treble.mk)
