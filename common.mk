@@ -165,9 +165,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     ExtendedSettings
 
+ifneq (,$(filter true, $(USE_CAMERA_STUB)))
 # For android_filesystem_config.h
 PRODUCT_PACKAGES += \
     fs_config_files
+endif
 
 # librqbalance
 PRODUCT_PACKAGES += \
