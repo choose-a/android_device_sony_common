@@ -31,6 +31,14 @@
 #define __INIT_MSM__H__
 
 #include <sys/system_properties.h>
+#include <cutils/klog.h>
+
+#define ERROR(x...)   init_klog_write(KLOG_ERROR_LEVEL, x)
+#define WARNING(x...) init_klog_write(KLOG_WARNING_LEVEL, x)
+#define NOTICE(x...)  init_klog_write(KLOG_NOTICE_LEVEL, x)
+#define INFO(x...)    init_klog_write(KLOG_INFO_LEVEL, x)
+#define DEBUG(x...)   init_klog_write(KLOG_DEBUG_LEVEL, x)
+#define VERBOSE(x...) init_klog_write(KLOG_DEBUG_LEVEL, x)
 
 #define PROP_HWROTATE    "ro.sf.hwrotation"
 #define PROP_LCDDENSITY  "ro.sf.lcd_density"
@@ -39,6 +47,7 @@
 #define UNUSED(a)       ((void)(a))
 #define ISMATCH(a,b)    (!strncmp(a,b,PROP_VALUE_MAX))
 
+void init_klog_write(int level, const char* fmt, ...) __printflike(2, 3);
 void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type);
 
 #endif /* __INIT_MSM__H__ */
