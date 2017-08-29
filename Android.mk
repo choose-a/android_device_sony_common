@@ -114,15 +114,4 @@ ifeq ($(USE_DEVICE_SPECIFIC_GPS),)
 include $(call all-makefiles-under,$(gps-hal))
 endif
 
-ifeq ($(BOARD_HAVE_BLUETOOTH_QCOM),true)
-ifneq ($(filter rhine,$(PRODUCT_PLATFORM)),)
-  include $(call all-makefiles-under,hardware/qcom/bt/msm8960)
-else
-  include $(call all-makefiles-under,hardware/qcom/bt/msm8998)
-endif
-endif
-ifeq ($(BOARD_WLAN_DEVICE),qcwcn)
-  include $(call all-makefiles-under,hardware/qcom/wlan/qcwcn)
-endif
-
 endif
