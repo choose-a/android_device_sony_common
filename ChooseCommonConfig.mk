@@ -18,8 +18,10 @@ COMMON_PATH := device/sony/common
 # Also use headers from kernel during build process
 TARGET_COMPILE_WITH_MSM_KERNEL := true
 
+ifneq (,$(filter true, $(USE_CAMERA_STUB)))
 # Common kernel source
 TARGET_KERNEL_SOURCE := kernel/sony/msm
+endif
 
 # Enforcing SELinux
 BOARD_USE_ENFORCING_SELINUX := true
