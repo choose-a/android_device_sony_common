@@ -27,6 +27,8 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#define LOG_TAG "init_msm.sony"
+
 #include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -36,6 +38,7 @@
 #include <unistd.h>
 #include <private/android_filesystem_config.h>
 #include <sys/system_properties.h>
+#include <cutils/log.h>
 
 #include "vendor_init.h"
 #include "property_service.h"
@@ -83,7 +86,7 @@ static int read_file2(const char *fname, char *data, int max_size)
 
     fd = open(fname, O_RDONLY);
     if (fd < 0) {
-        ERROR("failed to open '%s'\n", fname);
+        ALOGE("failed to open '%s'\n", fname);
         return 0;
     }
 
@@ -108,7 +111,7 @@ void setPerms(char *path, uint32_t mode)
     int fd = open(path, O_RDONLY | O_NOFOLLOW);
     if (fd >= 0) {
        if (fchmod(fd, mode) < 0)
-          ERROR("chmod failed for %s: errno = %d", path, errno);
+          ALOGE("chmod failed for %s: errno = %d", path, errno);
        close(fd);
     }
 }
@@ -125,7 +128,7 @@ void setOwners(char *path, int owner, int group)
     int fd = open(path, O_RDONLY | O_NOFOLLOW);
     if (fd >= 0) {
        if (fchown(fd, owner, group) < 0)
-          ERROR(" chown failed for %s: errno = %d", path, errno);
+          ALOGE(" chown failed for %s: errno = %d", path, errno);
        close(fd);
     }
 }
@@ -256,7 +259,7 @@ static int check_rlim_action()
         rl.rlim_cur = RLIM_INFINITY;
         rl.rlim_max = RLIM_INFINITY;
         if (setrlimit(RLIMIT_CORE, &rl) < 0) {
-            ERROR("could not enable core file generation");
+            ALOGE("could not enable core file generation");
         }
     }
     return 0;
@@ -290,11 +293,11 @@ void vendor_load_properties()
     }
     if (!msm_id) {
         /* abort */
-        ERROR("MSM SOC detection failed, skipping MSM initialization\n");
+        ALOGE("MSM SOC detection failed, skipping MSM initialization\n");
         return;
     }
 
-    ERROR("Detected MSM SOC ID=%lu SOC VER=%lu BOARD TYPE=%s\n",
+    ALOGE("Detected MSM SOC ID=%lu SOC VER=%lu BOARD TYPE=%s\n",
           msm_id, msm_ver, board_type);
 
     /* Define MSM family properties */

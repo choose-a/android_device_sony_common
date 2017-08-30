@@ -32,7 +32,7 @@ LOCAL_SRC_FILES := \
     init_msm.cpp \
     init_msm_platform.cpp
 
-LOCAL_SHARED_LIBRARIES := libcutils
+LOCAL_SHARED_LIBRARIES := liblog
 
 LOCAL_MODULE := libinit_msm
 
