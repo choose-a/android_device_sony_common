@@ -23,18 +23,9 @@ COMMON_PATH := device/sony/common
 # Common from upstream
 $(call inherit-product, $(COMMON_PATH)/common.mk)
 
-# Variant linking script
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/releasetools/updater.sh:utilities/updater.sh
-
 # SELinux
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
-
-# Exclude these from build.prop, they are set by libinit
-PRODUCT_SYSTEM_PROPERTY_BLACKLIST := \
-    ro.product.model \
-    ro.product.device
 
 # Omni custom config
 $(call inherit-product, vendor/choose-a/config/common.mk)
