@@ -22,7 +22,7 @@ TARGET_COMPILE_WITH_MSM_KERNEL := true
 TARGET_KERNEL_SOURCE := kernel/sony/msm
 
 # Enforcing SELinux
-BOARD_USE_ENFORCING_SELINUX := true
+BOARD_USE_ENFORCING_SELINUX := false
 
 # Unified Device
 TARGET_UNIFIED_DEVICE := true
