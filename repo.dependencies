@@ -22,5 +22,5 @@
     "repository":   "choose-a/android_kernel_sony_msm",
     "target_path":  "kernel/sony/msm",
     "revision":     "choose-8.0"
-  },
+  }
 ]
