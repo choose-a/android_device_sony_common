@@ -7,12 +7,6 @@
   },
   {
     "remote":       "choose-a",
-    "repository":   "choose-a/android_device_sony_common-init",
-    "target_path":  "device/sony/common-init",
-    "revision":     "choose-8.0"
-  },
-  {
-    "remote":       "choose-a",
     "repository":   "choose-a/android_device_sony_sepolicy",
     "target_path":  "device/sony/sepolicy",
     "revision":     "choose-8.0"
