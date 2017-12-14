@@ -75,6 +75,9 @@ on post-fs
     # Wait qseecomd started
     wait_for_prop sys.listeners.registered true
 
+on post-fs
+    exec - system graphics -- /system/vendor/bin/odmcheck
+
 on post-fs-data
     # We can start netd here before in is launched in common init.rc on zygote-start
     start netd
@@ -209,7 +212,7 @@ on boot
     chmod 0660 /data/misc/radio/copy_complete
 
     # Create folder for timekeep
-    mkdir /data/time/ 0700 system system
+    mkdir /data/time/ 0770 system system
 
     # Camera Recording
     mkdir /dev/video
