@@ -68,7 +68,7 @@ service netmgrd /odm/bin/netmgrd
     writepid /dev/cpuset/system-background/tasks
 
 # QCOM prop
-service irsc_util /odm/bin/irsc_util "/etc/sec_config"
+service irsc_util /odm/bin/irsc_util "/vendor/etc/sec_config"
     class main
     user root
     oneshot
@@ -89,7 +89,7 @@ service per_proxy /odm/bin/pm-proxy
     disabled
     writepid /dev/cpuset/system-background/tasks
 
-service msm_irqbalance /odm/bin/msm_irqbalance -f /system/etc/msm_irqbalance.conf
+service msm_irqbalance /odm/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
     socket msm_irqbalance seqpacket 660 root system
     class core
     user root
