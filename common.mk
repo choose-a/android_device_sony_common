@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Vendor version
-TARGET_VENDOR_VERSION := 6
+TARGET_VENDOR_VERSION := 7
 
 # Common path
 COMMON_PATH := device/sony/common
@@ -84,7 +84,7 @@ PRODUCT_COPY_FILES += \
 
 # Seccomp policy
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/seccomp_policy/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
+    $(COMMON_PATH)/rootdir/vendor/etc/seccomp_policy/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
 
 # Audio Configuration
 PRODUCT_COPY_FILES += \
