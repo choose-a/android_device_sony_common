@@ -15,6 +15,9 @@
 # Common path
 COMMON_PATH := device/sony/common
 
+# Custom config
+-include $(COMMON_PATH)custom.mk
+
 # Do not build proprietary capability
 TARGET_USES_AOSP := true
 

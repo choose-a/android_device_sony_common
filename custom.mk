@@ -28,7 +28,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
 
 # twrp
-$(call inherit-product, $(COMMON_PATH)/recovery/twrp.mk)
+include $(COMMON_PATH)/recovery/twrp.mk
 
-# choose-a config
-$(call inherit-product, vendor/choose-a/config/common.mk)
+# rom config
+include vendor/choose-a/config/common.mk
