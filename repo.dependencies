@@ -3,7 +3,7 @@
     "remote":       "choose-a",
     "repository":   "choose-a/android_device_sony_common-headers",
     "target_path":  "device/sony/common-headers",
-    "revision":     "choose-8.0"
+    "revision":     "choose-8.1"
   },
   {
     "remote":       "choose-a",
@@ -15,6 +15,6 @@
     "remote":       "choose-a",
     "repository":   "choose-a/android_kernel_sony_msm",
     "target_path":  "kernel/sony/msm",
-    "revision":     "choose-8.0"
+    "revision":     "choose-8.1"
   }
 ]
