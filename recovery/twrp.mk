@@ -21,8 +21,6 @@ TW_EXCLUDE_DEFAULT_USB_INIT := true
 
 # features
 TW_USE_TOOLBOX := true
-TW_NO_EXFAT := true
-TW_NO_EXFAT_FUSE := true
 TW_EXCLUDE_SUPERSU := true
 TW_EXTRA_LANGUAGES := true
 
