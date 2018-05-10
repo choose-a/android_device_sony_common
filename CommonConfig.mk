@@ -29,7 +29,7 @@ TARGET_NO_KERNEL := false
 ifneq ($(BOARD_USE_ENFORCING_SELINUX),true)
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 endif
-BOARD_KERNEL_CMDLINE += console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0
+#BOARD_KERNEL_CMDLINE += console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0
 BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x3F ehci-hcd.park=3
 BOARD_KERNEL_CMDLINE += coherent_pool=8M
 BOARD_KERNEL_CMDLINE += sched_enable_power_aware=1 user_debug=31
@@ -98,8 +98,8 @@ endif
 WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= true
 
 BUILD_KERNEL := true
--include device/sony/common-headers/KernelHeaders.mk
--include device/sony/common-kernel/KernelConfig.mk
+-include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
+-include $(KERNEL_PATH)/common-kernel/KernelConfig.mk
 
 # Include build helpers for QCOM proprietary
 -include vendor/qcom/proprietary/common/build/proprietary-build.mk

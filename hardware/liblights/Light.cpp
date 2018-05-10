@@ -22,6 +22,12 @@
 
 #include "Light.h"
 
+#ifdef UCOMMSVR_BACKLIGHT
+extern "C" {
+#include <comm_server/ucomm_ext.h>
+}
+#endif
+
 namespace android {
     namespace hardware {
         namespace light {
@@ -137,6 +143,10 @@ namespace android {
                     std::string Light::getScaledDutyPcts(int brightness) {
                         std::string buf, pad;
 
+                        if (brightness <= 0) {
+                            return "0";
+                        }
+
                         for (auto i : BRIGHTNESS_RAMP) {
                             buf += pad;
                             buf += std::to_string(i * brightness / 255);
@@ -195,8 +205,11 @@ namespace android {
                             if (mDevice->backlight_bits > 8) {
                                 brightness = brightness << (mDevice->backlight_bits - 8);
                             }
-
+#ifdef UCOMMSVR_BACKLIGHT
+                            err = ucommsvr_set_backlight(brightness);
+#else
                             err = writeInt(LCD_FILE, brightness);
+#endif
                         }
 
                         pthread_mutex_unlock(&mDevice->g_lcd_lock);
