@@ -43,6 +43,18 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/com.nxp.mifare.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.nxp.mifare.xml \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
 
+# Common Specific Permissions Extenstions
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/permissions/privapp-permissions-extension.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-extension.xml
+
+# Transmit power
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/permissions/privapp-permissions-transmitpower.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-transmitpower.xml
+
+# Extended Settings
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/permissions/privapp-permissions-extendedsettings.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-extendedsettings.xml
+
 ifneq ($(TARGET_DEVICE_NO_FPC), true)
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
