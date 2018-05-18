@@ -47,6 +47,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/permissions/privapp-permissions-extension.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-extension.xml
 
+# Transmit power
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/permissions/privapp-permissions-transmitpower.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-transmitpower.xml
+
 ifneq ($(TARGET_DEVICE_NO_FPC), true)
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
