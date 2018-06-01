@@ -1,0 +1,6 @@
+service variants_sh /vendor/bin/variants.sh
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
