@@ -1,0 +1,7 @@
+# OSS WLAN and BT MAC setup
+service set_sim_variant /vendor/bin/sim_variant
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
