@@ -1,0 +1,6 @@
+service simvariant_sh /vendor/bin/simvariant.sh
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
