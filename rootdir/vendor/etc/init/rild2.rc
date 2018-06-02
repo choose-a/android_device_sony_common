@@ -2,7 +2,7 @@ on property:ro.telephony.default_network=9
 # DSDS second ril
     start variants_sh
 
-    start set_sim_variant
+    start sim_variant
 
 service ril-daemon2 /vendor/bin/hw/rild -c 2
     class main

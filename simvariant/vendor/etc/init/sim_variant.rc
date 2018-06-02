@@ -1,5 +1,5 @@
 # SIM variant setup
-service set_sim_variant /vendor/bin/sim_variant
+service sim_variant /vendor/bin/sim_variant
     class main
     user root
     group root system
