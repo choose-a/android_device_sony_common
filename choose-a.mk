@@ -23,9 +23,9 @@ TARGET_KERNEL_SOURCE := kernel/sony/msm
 TARGET_COMPILE_WITH_MSM_KERNEL := true
 
 # SELinux
-BOARD_USE_ENFORCING_SELINUX := true
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.build.selinux=1
+#BOARD_USE_ENFORCING_SELINUX := true
+#PRODUCT_PROPERTY_OVERRIDES += \
+#    ro.build.selinux=1
 
 # twrp
 $(call inherit-product, $(COMMON_PATH)/recovery/twrp.mk)
