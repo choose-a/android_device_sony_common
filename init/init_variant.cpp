@@ -101,7 +101,6 @@ void vendor_load_properties()
     model = get_model_number();
     __system_property_get("ro.choose-a.device", codename);
     // Set Properties
-    property_set("ro.product.model", model);
     property_set("ro.product.device", codename);
 
 #if VARIANT_GSM
@@ -114,7 +113,11 @@ void vendor_load_properties()
 
     if (variantID >= 0) {
         if (variants[variantID].is_ds) {
+            property_set("persist.multisim.config", "dsds");
             property_set("persist.radio.multisim.config", "dsds");
+            property_set("ro.telephony.ril.config", "simactivation");
+            property_override("ro.telephony.default_network", "9,1");
+            property_override("ro.product.model", model);
         }
     }
 #endif
