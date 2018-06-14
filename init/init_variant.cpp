@@ -48,9 +48,36 @@
 namespace android {
 namespace init {
 
+#define LTA_MODEL_OFFSET 20
+#define LTA_MODEL_LENGTH 4
+
+string get_model_number()
+{
+    string lta;
+
+    DIR* dirFile = opendir( "/lta-label/" );
+    if ( dirFile )
+    {
+        struct dirent* hFile;
+
+        while (( hFile = readdir( dirFile )) != NULL )
+        {
+            // ignore these special files
+            if ( !strcmp( hFile->d_name, "."  )) continue;
+            if ( !strcmp( hFile->d_name, ".." )) continue;
+
+            // get the model from the file name of the .html file
+            if ( strstr( hFile->d_name, ".html" ))
+            lta = string(hFile->d_name).substr(LTA_MODEL_OFFSET, LTA_MODEL_LENGTH);
+        }
+        closedir( dirFile );
+    }
+    return lta;
+}
+
 void vendor_load_properties()
 {
-    char model[PROP_VALUE_MAX];
+    string model;
     char codename[PROP_VALUE_MAX];
 
 #if VARIANT_GSM
@@ -58,7 +85,7 @@ void vendor_load_properties()
 #endif
 
     // Get properties
-    __system_property_get("ro.sony.variant", model);
+    model = get_model_number();
     __system_property_get("ro.choose-a.device", codename);
     // Set Properties
     property_set("ro.product.model", model);
