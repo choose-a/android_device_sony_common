@@ -26,7 +26,16 @@ set_log() {
 }
 
 # set log
-set_log variant_detect.log
+# set_log variant_detect.log
+
+ui_print() {
+  if [ $OUTFD != "" ]; then
+    echo "ui_print ${1} " 1>&$OUTFD;
+    echo "ui_print " 1>&$OUTFD;
+  else
+    echo "${1}";
+  fi;
+}
 
 # check mounts
 check_mount() {
@@ -55,8 +64,45 @@ check_mount() {
 }
 
 # check partitions
-check_mount /system /dev/block/bootdevice/by-name/system ext4;
 check_mount /lta-label /dev/block/bootdevice/by-name/LTALabel ext4;
+check_mount /odm /dev/block/bootdevice/by-name/oem ext4;
+
+# Check the vendor firmware version flashed on ODM
+
+currentversion=12
+
+vendorversion=$(\
+    cat /odm/odm_version.prop | \
+    grep ro.vendor.version | \
+    sed s/.*=// \
+);
+
+echo "Vendorversion: ${vendorversion}";
+
+if [[ "$vendorversion" == "$currentversion" ]]
+then
+  ui_print ("#######################################");
+  ui_print ("###    Vendorversion up to date     ###");
+  ui_print ("#######################################");
+else
+  ui_print ("#######################################");
+  ui_print ("#  PLEASE BEWARE YOU DONOT HAVE THE   #");
+  ui_print ("#  (CURRENT) VENDOR FIRMWARE INSTALLED#");
+  ui_print ("#=====================================#");
+  ui_print ("#  NOT HAVING THIS INSTALLED COULD    #");
+  ui_print ("#  CAUSE UNEXPECTED AND UNWANTED      #");
+  ui_print ("#  BEHAVIOUR. GET YOUR COPY OF THE    #");
+  ui_print ("#  LATEST VENDOR FIRMWARE AT:         #");
+  ui_print ("#  https://developer.sony.com/deve    #");
+  ui_print ("#  lop/open-devices/guides/aosp-bu    #");
+  ui_print ("#  ild-instructions                   #");
+  ui_print ("#  AND FOLLOW INSTRUCTIONS ON LINKED  #");
+  ui_print ("#  PAGES. ALTERNATIVELY CHECK THE     #");
+  ui_print ("#  README THAT IS INCLUDED IN THE     #");
+  ui_print ("#  ZIP YOU ARE INSTALLING THIS        #");
+  ui_print ("#  ROM FROM                           #");
+  ui_print ("#######################################");
+fi
 
 # Detect the exact model from the LTALabel partition
 # This looks something like:
@@ -71,8 +117,11 @@ variant=$(\
 echo "Variant: ${variant}";
 
 # Set the variant as a prop
-touch /system/vendor/build.prop;
-$(echo "ro.sony.variant=${variant}" >> /system/vendor/build.prop);
-chmod 0644 /system/vendor/build.prop;
+if [ ! -f /odm/build.prop ]
+then
+touch /odm/build.prop;
+$(echo "ro.sony.variant=${variant}" >> /odm/build.prop);
+chmod 0644 /odm/build.prop;
+fi
 
 exit 0
