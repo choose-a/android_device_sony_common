@@ -54,9 +54,46 @@ check_mount() {
     fi
 }
 
+# Check the vendor firmware version flashed on ODM
+
+currentversion=v12
+
+vendorversion=$(\
+    getprop ro.odm.expect.version | \
+    sed s/.*_// | \
+    sed s/_.*_// \
+);
+echo "Vendorversion: ${vendorversion}";
+
+if [[ "$vendorversion" == "$currentversion"]]
+then
+  ui_print("#######################################");
+  ui_print("###    Vendorversion up to date     ###");
+  ui_print("#######################################");
+else
+  [COLOR="red"]ui_print("#######################################");[/COLOR]
+  [COLOR="red"]ui_print("#  PLEASE BEWARE YOU DONOT HAVE THE   #");[/COLOR]
+  [COLOR="red"]ui_print("#  CURRENT VENDOR FIRMWARE INSTALLED  #");[/COLOR]
+  [COLOR="red"]ui_print("#=====================================#");[/COLOR]
+  [COLOR="red"]ui_print("#  NOT HAVING THIS INSTALLED COULD    #");[/COLOR]
+  [COLOR="red"]ui_print("#  CAUSE UNEXPECTED AND UNWANTED      #");[/COLOR]
+  [COLOR="red"]ui_print("#  BEHAVIOUR. GET YOUR COPY OF THE    #");[/COLOR]
+  [COLOR="red"]ui_print("#  LATEST VENDOR FIRMWARE AT:         #");[/COLOR]
+  [COLOR="red"]ui_print("#  https://developer.sony.com/deve    #");[/COLOR]
+  [COLOR="red"]ui_print("#  lop/open-devices/guides/aosp-bu    #");[/COLOR]
+  [COLOR="red"]ui_print("#  ild-instructions                   #");[/COLOR]
+  [COLOR="red"]ui_print("#  AND FOLLOW INSTRUCTIONS ON LINKED  #");[/COLOR]
+  [COLOR="red"]ui_print("#  PAGES. ALTERNATIVELY CHECK THE     #");[/COLOR]
+  [COLOR="red"]ui_print("#  README THAT IS INCLUDED IN THE     #");[/COLOR]
+  [COLOR="red"]ui_print("#  ZIP YOU ARE INSTALLING THIS        #");[/COLOR]
+  [COLOR="red"]ui_print("#  ROM FROM                           #");[/COLOR]
+  [COLOR="red"]ui_print("#######################################");[/COLOR]
+fi
+
 # check partitions
 check_mount /system /dev/block/bootdevice/by-name/system ext4;
 check_mount /lta-label /dev/block/bootdevice/by-name/LTALabel ext4;
+check_mount /odm /dev/block/bootdevice/by-name/oem ext4;
 
 # Detect the exact model from the LTALabel partition
 # This looks something like:
@@ -71,8 +108,11 @@ variant=$(\
 echo "Variant: ${variant}";
 
 # Set the variant as a prop
-touch /system/vendor/build.prop;
-$(echo "ro.sony.variant=${variant}" >> /system/vendor/build.prop);
-chmod 0644 /system/vendor/build.prop;
+if [ ! -f /odm/build.prop ]
+then
+touch /odm/build.prop;
+$(echo "ro.sony.variant=${variant}" >> /odm/build.prop);
+chmod 0644 /odm/build.prop;
+fi
 
 exit 0
