@@ -16,8 +16,18 @@
 
 """ Custom OTA commands for Sony devices """
 
+import common
+import re
+import os
+
+TARGET_DIR = os.getenv('OUT')
+UTILITIES_DIR = os.path.join(TARGET_DIR, 'utilities')
+
 def FullOTA_InstallEnd(info):
-  info.script.Mount("/system")
-  info.script.AppendExtra('ui_print("Detecting your device variant");')
-  info.script.AppendExtra('run_program("/sbin/sh", "/system/vendor/bin/updater.sh");')
-  info.script.Unmount("/system")
+  info.output_zip.write(os.path.join(UTILITIES_DIR, "updater.sh"), "updater.sh")
+
+  info.script.AppendExtra(
+        ('package_extract_file("updater.sh", "/tmp/updater.sh");\n'
+         'set_metadata("/tmp/updater.sh", "uid", 0, "gid", 0, "mode", 0755);'))
+
+  info.script.AppendExtra('assert(run_program("/tmp/updater.sh") == 0);')
