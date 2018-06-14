@@ -32,6 +32,8 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+#include <dirent.h>
+#include <sys/types.h>
 #include <sys/system_properties.h>
 
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
@@ -64,10 +66,15 @@ void property_override(char const prop[], char const value[])
         __system_property_add(prop, strlen(prop), value, strlen(value));
 }
 
-string get_model_number()
+void vendor_load_properties()
 {
-    string lta;
+    char model[PROP_VALUE_MAX];
+    char codename[PROP_VALUE_MAX];
+    std::string readmodel;
 
+#if VARIANT_GSM
+    int variantID = -1;
+#endif
     DIR* dirFile = opendir( "/lta-label/" );
     if ( dirFile )
     {
@@ -81,32 +88,19 @@ string get_model_number()
 
             // get the model from the file name of the .html file
             if ( strstr( hFile->d_name, ".html" ))
-            lta = string(hFile->d_name).substr(LTA_MODEL_OFFSET, LTA_MODEL_LENGTH);
+            readmodel=std::string(hFile->d_name).substr(LTA_MODEL_OFFSET, LTA_MODEL_LENGTH);
         }
         closedir( dirFile );
     }
-    return lta;
-}
-
-void vendor_load_properties()
-{
-    string model;
-    char codename[PROP_VALUE_MAX];
-
-#if VARIANT_GSM
-    int variantID = -1;
-#endif
 
     // Get properties
-    model = get_model_number();
     __system_property_get("ro.choose-a.device", codename);
     // Set Properties
-    property_set("ro.product.model", model);
     property_set("ro.product.device", codename);
 
 #if VARIANT_GSM
     for (int i = 0; i < (signed)(sizeof(variants)/(sizeof(variants[0]))); i++) {
-        if (strcmp(model,variants[i].model) == 0) {
+        if (readmodel == variants[i].readmodel) {
             variantID = i;
             break;
         }
@@ -114,7 +108,11 @@ void vendor_load_properties()
 
     if (variantID >= 0) {
         if (variants[variantID].is_ds) {
+            property_set("persist.multisim.config", "dsds");
             property_set("persist.radio.multisim.config", "dsds");
+            property_set("ro.telephony.ril.config", "simactivation");
+            property_override("ro.telephony.default_network", "9,1");
+            property_override("ro.product.model", model);
         }
     }
 #endif
