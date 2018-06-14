@@ -57,6 +57,44 @@ check_mount() {
 # check partitions
 check_mount /system /dev/block/bootdevice/by-name/system ext4;
 check_mount /lta-label /dev/block/bootdevice/by-name/LTALabel ext4;
+check_mount /odm /dev/block/bootdevice/by-name/oem ext4;
+
+# Check the vendor firmware version flashed on ODM
+
+currentversion=12
+
+vendorversion=$(\
+    cat /odm/odm_version.prop | \
+    grep ro.vendor.version | \
+    sed s/.*=// \
+);
+
+echo "Vendorversion: ${vendorversion}";
+
+if [[ "$vendorversion" == "$currentversion"]]
+then
+  echo "#######################################";
+  echo "###    Vendorversion up to date     ###";
+  echo "#######################################";
+else
+  echo -e "${RED}#######################################${NC}";
+  echo -e "${RED}#  PLEASE BEWARE YOU DONOT HAVE THE   #${NC}";
+  echo -e "${RED}#  (CURRENT) VENDOR FIRMWARE INSTALLED#${NC}";
+  echo -e "${RED}#=====================================#${NC}";
+  echo -e "${RED}#  NOT HAVING THIS INSTALLED COULD    #${NC}";
+  echo -e "${RED}#  CAUSE UNEXPECTED AND UNWANTED      #${NC}";
+  echo -e "${RED}#  BEHAVIOUR. GET YOUR COPY OF THE    #${NC}";
+  echo -e "${RED}#  LATEST VENDOR FIRMWARE AT:         #${NC}";
+  echo -e "${RED}#  https://developer.sony.com/deve    #${NC}";
+  echo -e "${RED}#  lop/open-devices/guides/aosp-bu    #${NC}";
+  echo -e "${RED}#  ild-instructions                   #${NC}";
+  echo -e "${RED}#  AND FOLLOW INSTRUCTIONS ON LINKED  #${NC}";
+  echo -e "${RED}#  PAGES. ALTERNATIVELY CHECK THE     #${NC}";
+  echo -e "${RED}#  README THAT IS INCLUDED IN THE     #${NC}";
+  echo -e "${RED}#  ZIP YOU ARE INSTALLING THIS        #${NC}";
+  echo -e "${RED}#  ROM FROM                           #${NC}";
+  echo -e "${RED}#######################################${NC}";
+fi
 
 # Detect the exact model from the LTALabel partition
 # This looks something like:
@@ -71,8 +109,11 @@ variant=$(\
 echo "Variant: ${variant}";
 
 # Set the variant as a prop
-touch /system/vendor/build.prop;
-$(echo "ro.sony.variant=${variant}" >> /system/vendor/build.prop);
-chmod 0644 /system/vendor/build.prop;
+if [ ! -f /odm/build.prop ]
+then
+touch /odm/build.prop;
+$(echo "ro.sony.variant=${variant}" >> /odm/build.prop);
+chmod 0644 /odm/build.prop;
+fi
 
 exit 0
