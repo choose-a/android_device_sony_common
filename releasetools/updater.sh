@@ -114,13 +114,17 @@ fi
 # Set the variant as a prop
 if [ ! -f /odm/odm_version.prop ]
 then
-    printoemversion="***NONE***"
-else
-    printoemversion=${oemversion}
+    ui_print
+    ui_print "NO OEMBINARIES INSTALLED. ABORTING!"
+    ui_print "FIRST INSTALL OEMBINARIES"
+    ui_print "CHECK THE README INCLUDED IN THIS ZIP"
+    ui_print "Error $1"
+    sleep 5;
+    exit "$1"
 fi
 
 ui_print
-ui_print "Current Oem Binaries version: ${printoemversion}"
+ui_print "Current Oem Binaries version: ${oemversion}"
 ui_print "Expected Oem Binaries version: ${expectedoem}"
 
 # Detect the exact model from the LTALabel partition
