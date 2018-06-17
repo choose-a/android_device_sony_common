@@ -35,6 +35,7 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(COMMON_PATH)/releasetools
 
 # Variant linking script
 PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/releasetools/odmcheck.sh:utilities/odmcheck.sh \
     $(COMMON_PATH)/releasetools/updater.sh:utilities/updater.sh \
     $(COMMON_PATH)/releasetools/README:utilities/README
 

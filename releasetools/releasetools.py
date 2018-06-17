@@ -23,7 +23,7 @@ import os
 TARGET_DIR = os.getenv('OUT')
 UTILITIES_DIR = os.path.join(TARGET_DIR, 'utilities')
 
-def FullOTA_InstallEnd(info):
+def FullOTA_InstallBegin(info):
   info.output_zip.write(os.path.join(UTILITIES_DIR, "updater.sh"), "updater.sh")
   info.output_zip.write(os.path.join(UTILITIES_DIR, "README"), "README")
 
