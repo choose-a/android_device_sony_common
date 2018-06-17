@@ -23,12 +23,20 @@ import os
 TARGET_DIR = os.getenv('OUT')
 UTILITIES_DIR = os.path.join(TARGET_DIR, 'utilities')
 
+def FullOTA_InstallBegin(info):
+  info.output_zip.write(os.path.join(UTILITIES_DIR, "odmcheck.sh"), "odmcheck.sh")
+  info.output_zip.write(os.path.join(UTILITIES_DIR, "README"), "README")
+
+  info.script.AppendExtra(
+        ('package_extract_file("odmcheck.sh", "/tmp/odmcheck.sh");\n'))
+
+  info.script.AppendExtra('ui_print("Detecting your device variant");')
+  info.script.AppendExtra('run_program("/sbin/sh", "/tmp/odmcheck.sh");')
+
 def FullOTA_InstallEnd(info):
   info.output_zip.write(os.path.join(UTILITIES_DIR, "updater.sh"), "updater.sh")
-  info.output_zip.write(os.path.join(UTILITIES_DIR, "README"), "README")
 
   info.script.AppendExtra(
         ('package_extract_file("updater.sh", "/tmp/updater.sh");\n'))
 
-  info.script.AppendExtra('ui_print("Detecting your device variant");')
   info.script.AppendExtra('run_program("/sbin/sh", "/tmp/updater.sh");')

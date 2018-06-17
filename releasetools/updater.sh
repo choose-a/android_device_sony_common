@@ -21,13 +21,6 @@ set -e
 
 OUTFD=$( xargs -0 < /proc/${PPID}/cmdline | awk '{print $3}' ) 2>/dev/null
 
-# write logs to /tmp
-set_log() {
-    mkdir -p /tmp/choose-a;
-    rm -rf /tmp/choose-a/"${1}";
-    exec >> /tmp/choose-a/"${1}" 2>&1;
-}
-
 ui_print() {
     if [ "${OUTFD}" != "" ]; then
         echo -e "ui_print ${1} " 1>&/proc/self/fd/$OUTFD;
@@ -65,9 +58,6 @@ failtest() {
     sleep 5;
 }
 
-# set log
-# set_log variant_detect.log
-
 # check mounts
 check_mount() {
     local MOUNT_POINT=$(readlink "${1}");
@@ -91,7 +81,6 @@ check_mount /lta-label /dev/block/bootdevice/by-name/LTALabel ext4;
 check_mount /odm /dev/block/bootdevice/by-name/oem ext4;
 
 # Check the vendor firmware version flashed on ODM
-
 expectedoem=$(\
     getprop ro.odm.expect.version | \
     sed s/.*_// | \
@@ -111,16 +100,8 @@ else
     failtest
 fi
 
-# Set the variant as a prop
-if [ ! -f /odm/odm_version.prop ]
-then
-    printoemversion="***NONE***"
-else
-    printoemversion=${oemversion}
-fi
-
 ui_print
-ui_print "Current Oem Binaries version: ${printoemversion}"
+ui_print "Current Oem Binaries version: ${oemversion}"
 ui_print "Expected Oem Binaries version: ${expectedoem}"
 
 # Detect the exact model from the LTALabel partition
