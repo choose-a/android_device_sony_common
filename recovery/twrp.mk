@@ -32,6 +32,7 @@ TARGET_NO_SEPARATE_RECOVERY := true
 
 # crypto
 TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
 TW_CRYPTO_FS_TYPE := "ext4"
 TW_CRYPTO_MNT_POINT := "/data"
 TW_CRYPTO_REAL_BLKDEV := "/dev/block/bootdevice/by-name/userdata"
