@@ -47,25 +47,13 @@ check_mount() {
     fi
 }
 
-# Check the vendor firmware version flashed on ODM
-whichoem=$(\
-    getprop ro.odm.expect.version | \
-    sed -r 's/^[^_]*_([^-]*)_.*$/\1/' | \
-    sed -e 's/_/-/g' | \
-    sed -e 's/\./-/g'
-);
-
-
-# check partitions
-check_mount /odm /dev/block/bootdevice/by-name/oem ext4;
-
-# Check the vendor firmware version flashed on ODM
-if [ ! -f /odm/odm_version.prop ]
-then
+# Error message
+showError() {
+    ui_print
     ui_print "NO CHANGES MADE."
     ui_print
     ui_print "NO OEMBINARIES INSTALLED. ABORTING!"
-    ui_print "FIRST INSTALL OEMBINARIES"
+    ui_print "FIRST INSTALL OR UPDATE OEMBINARIES"
     ui_print "CHECK THE README INCLUDED IN THIS ZIP"
     ui_print "GO TO THE WEBSITE AND OBTAIN, AND FLASH!"
     ui_print
@@ -81,5 +69,34 @@ then
     ui_print "NO CHANGES MADE."
     sleep 5;
     exit 1;
+}
+
+# Check the vendor firmware version flashed on ODM
+whichoem=$(\
+    getprop ro.odm.expect.version | \
+    sed -r 's/^[^_]*_([^-]*)_.*$/\1/' | \
+    sed -e 's/_/-/g' | \
+    sed -e 's/\./-/g'
+);
+
+# check partitions
+check_mount /odm /dev/block/bootdevice/by-name/oem ext4;
+
+# Check the vendor firmware version flashed on ODM
+if [ ! -f /odm/build.prop ]
+then
+    showError;
+else
+    currentoem=$(cat /odm/build.prop | grep ro.odm.version | cut -d '=' -f2);
+    requiredoem=$(getprop ro.odm.expect.version);
+    
+    if [ "${currentoem}" = "${requiredoem}" ];
+    then
+        ui_print "Check OEM version: OK!"
+    else
+        ui_print "Current  OEM: ${currentoem}"
+        ui_print "Required OEM: ${requiredoem}"
+        showError;
+    fi
 fi
 exit 0
