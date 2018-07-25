@@ -15,6 +15,8 @@
 # Common path
 COMMON_PATH := device/sony/common
 
+BOARD_VNDK_VERSION := current
+
 # Do not build proprietary capability
 TARGET_USES_AOSP := true
 
