@@ -71,9 +71,12 @@ showError() {
     exit 1;
 }
 
+# Set the vendor firmware from build. Avoid using the version from recovery
+oemversion=$(PLATFORM_VERSION)_$(SOMC_KERNEL_VERSION)_$(SOMC_PLATFORM)_$(TARGET_VENDOR_VERSION)
+
 # Check the vendor firmware version flashed on ODM
 whichoem=$(\
-    getprop ro.odm.expect.version | \
+    $(oemversion) | \
     sed -r 's/^[^_]*_([^-]*)_.*$/\1/' | \
     sed -e 's/_/-/g' | \
     sed -e 's/\./-/g'
@@ -88,14 +91,12 @@ then
     showError;
 else
     currentoem=$(cat /odm/build.prop | grep ro.odm.version | cut -d '=' -f2);
-    requiredoem=$(getprop ro.odm.expect.version);
-    if [ "${currentoem}" = "${requiredoem}" ];
+    if [ "${currentoem}" = "${oemversion}" ];
     then
         ui_print "Check OEM version: OK!"
     else
         ui_print "Current  OEM: ${currentoem}"
-        ui_print "Required OEM: ${requiredoem}"
-        showError;
+        ui_print "Required OEM: ${oemversion}"
     fi
 fi
 exit 0
