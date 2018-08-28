@@ -16,5 +16,11 @@
     "repository":   "choose-a/android_kernel_sony_msm",
     "target_path":  "kernel/sony/msm",
     "revision":     "choose-9.0"
+  },
+  {
+    "remote":       "choose-a",
+    "repository":   "choose-a/android_kernel_sony_msm-defconfig",
+    "target_path":  "kernel/sony/msm/kernel/arch/arm64/configs/sony",
+    "revision":     "choose-9.0"
   }
 ]
