@@ -19,7 +19,7 @@ PRODUCT_PACKAGES += \
 
 # Configstore
 PRODUCT_PACKAGES += \
-    android.hardware.configstore@1.0-service
+    android.hardware.configstore@1.1-service
 
 # RIL
 PRODUCT_PACKAGES += \
@@ -39,10 +39,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service
-
-# Netutils
-PRODUCT_PACKAGES += \
-    netutils-wrapper-1.0
 
 # Wi-Fi
 PRODUCT_PACKAGES += \
