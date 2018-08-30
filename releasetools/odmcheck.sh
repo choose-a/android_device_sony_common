@@ -82,6 +82,12 @@ whichoem=$(\
 # check partitions
 check_mount /odm /dev/block/bootdevice/by-name/oem ext4;
 
+currentoem=$(cat /odm/build.prop | grep ro.odm.version | cut -d '=' -f2);
+requiredoem=$(getprop ro.odm.expect.version);
+ui_print "Current  OEM: ${currentoem}"
+ui_print "Required OEM: ${requiredoem}"
+exit 0;
+
 # Check the vendor firmware version flashed on ODM
 if [ ! -f /odm/build.prop ]
 then
