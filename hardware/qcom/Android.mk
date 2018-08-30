@@ -22,7 +22,7 @@ ifeq ($(SOMC_KERNEL_VERSION),4.9)
 audio-hal := hardware/qcom/audio
 bt-hal := hardware/qcom/bt/sdm845
 gps-hal := hardware/qcom/gps/sdm845
-display-hal := hardware/qcom/display/sde
+display-hal := hardware/qcom/display/msm8998
 QCOM_MEDIA_ROOT := hardware/qcom/media/sdm845
 OMX_VIDEO_PATH := mm-video-v4l2
 media-hal := hardware/qcom/media/sdm845
