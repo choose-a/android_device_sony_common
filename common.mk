@@ -15,7 +15,7 @@
 $(call inherit-product-if-exists, device/sony/customization/customization.mk)
 
 # Vendor version
-TARGET_VENDOR_VERSION := v2
+TARGET_VENDOR_VERSION := v3
 
 # Specify a "dev-keys" configuration.  Keys from
 # vendor/oss/release-keys will be used instead of the keys under
@@ -65,6 +65,7 @@ PRODUCT_COPY_FILES += \
 
 # Seccomp policy
 PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/seccomp_policy/mediaextractor.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy \
     $(COMMON_PATH)/rootdir/vendor/etc/seccomp_policy/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
 
 # Audio Configuration

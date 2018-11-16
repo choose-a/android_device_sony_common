@@ -74,10 +74,6 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf \
     libwpa_client
 
-# Bluetooth
-PRODUCT_PACKAGES += \
-    libbt-vendor
-
 # NFC packages
 PRODUCT_PACKAGES += \
     NfcNci \
@@ -96,15 +92,13 @@ PRODUCT_PACKAGES += \
     timekeep \
     TimeKeep \
 
-ifneq ($(SOMC_KERNEL_VERSION),4.9)
-# OSS Thermal Management
-PRODUCT_PACKAGES += \
-    thermanager
-endif
-
 # OSS WIFI and BT MAC tool
 PRODUCT_PACKAGES += \
     macaddrsetup
+
+# Telephony
+PRODUCT_PACKAGES += \
+    QcRilAm
 
 # QCOM Data
 PRODUCT_PACKAGES += \

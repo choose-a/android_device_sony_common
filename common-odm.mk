@@ -1,3 +1,7 @@
+# SDE DRM
+PRODUCT_PACKAGES += \
+    libsdedrm
+
 # Secure MSM
 PRODUCT_PACKAGES += \
     qseecomd
@@ -45,6 +49,7 @@ PRODUCT_PACKAGES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
+    sscrpcd \
     libsensor_reg  \
     libsensor1 \
     sensors.msm8226 \
@@ -89,6 +94,8 @@ PRODUCT_PACKAGES += \
     libqmi_encdec \
     libqmiservices \
     libqmiservices_ext \
+    libqrtr \
+    libqsocket \
     qmuxd
 
 # Ril
@@ -115,6 +122,7 @@ PRODUCT_PACKAGES += \
 
 # Camera Override
 PRODUCT_PACKAGES += \
+    libcom.qti.chinodeutils \
     com.qti.chi.override
 
 # Camera Framework
