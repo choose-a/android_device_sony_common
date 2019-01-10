@@ -42,6 +42,10 @@ on init
     write /sys/bus/msm_subsys/devices/subsys1/restart_level "RELATED"
     write /sys/bus/msm_subsys/devices/subsys2/restart_level "RELATED"
     write /sys/bus/msm_subsys/devices/subsys3/restart_level "RELATED"
+    write /sys/bus/msm_subsys/devices/subsys4/restart_level "RELATED"
+    write /sys/bus/msm_subsys/devices/subsys5/restart_level "RELATED"
+    write /sys/bus/msm_subsys/devices/subsys6/restart_level "RELATED"
+    write /sys/bus/msm_subsys/devices/subsys7/restart_level "RELATED"
 
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
@@ -77,17 +81,15 @@ on init
     chmod 0660 /sys/devices/system/cpu/cpuquiet/rqbalance/cluster_freq_vote_min
 
 on fs
+    # Set RLIMIT_MEMLOCK to 64MB
+    setrlimit 8 67108864 67108864
+
     # Start HW service manager early
     start hwservicemanager
 
     mount_all /vendor/etc/fstab.${ro.hardware}
 
-    # /dsp is initially unlabelled so we need to mount
-    # it as rw, restore AOSP labels, then remount
-    restorecon_recursive /dsp
-    mount rootfs rootfs /dsp ro remount
-
-    restorecon_recursive /persist
+    restorecon_recursive /mnt/vendor/persist
 
 on post-fs
     # Wait qseecomd started
@@ -183,9 +185,6 @@ on post-fs-data
     setprop vold.post_fs_data_done 1
 
 on early-boot
-    # Set RLIMIT_MEMLOCK to 64MB
-    setrlimit 8 67108864 67108864
-
     # Graphics Permissions bootanimation
     chmod 0664 /sys/devices/virtual/graphics/fb0/msm_cmd_autorefresh_en
     chown system graphics /sys/devices/virtual/graphics/fb0/msm_cmd_autorefresh_en

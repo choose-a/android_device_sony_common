@@ -15,7 +15,7 @@
 $(call inherit-product-if-exists, device/sony/customization/customization.mk)
 
 # Vendor version
-TARGET_VENDOR_VERSION := v3
+TARGET_VENDOR_VERSION := v4
 
 # Specify a "dev-keys" configuration.  Keys from
 # vendor/oss/release-keys will be used instead of the keys under
@@ -28,6 +28,10 @@ TARGET_VENDOR_VERSION := v3
 
 # Common path
 COMMON_PATH := device/sony/common
+
+# Build scripts
+SONY_CLEAR_VARS := $(COMMON_PATH)/sony_clear_vars.mk
+SONY_BUILD_SYMLINKS := $(COMMON_PATH)/sony_build_symlinks.mk
 
 DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 
@@ -96,6 +100,20 @@ endif
 PRODUCT_PACKAGES += \
     init.qcom.devstart.sh \
     init.qcom.ipastart.sh
+
+# Depend on symlink creation in /vendor:
+PRODUCT_PACKAGES += \
+    adreno_symlinks \
+    camera_symlinks \
+    qca_cld3_symlinks \
+    tftp_symlinks
+
+# Create firmware mount point folders in /vendor:
+PRODUCT_PACKAGES += \
+    firmware_folders
+
+PRODUCT_PACKAGES += \
+    odm_build_prop_version
 
 # APN list
 PRODUCT_COPY_FILES += \

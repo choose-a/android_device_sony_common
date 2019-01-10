@@ -35,6 +35,8 @@ endif
 BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x3F ehci-hcd.park=3
 BOARD_KERNEL_CMDLINE += coherent_pool=8M
 BOARD_KERNEL_CMDLINE += sched_enable_power_aware=1 user_debug=31
+BOARD_KERNEL_CMDLINE += cgroup.memory=nokmem
+BOARD_KERNEL_CMDLINE += printk.devkmsg=on
 
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 
@@ -47,7 +49,11 @@ BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_USES_MKE2FS := true
 TARGET_USERIMAGES_USE_EXT4 := true
 
-BOARD_ROOT_EXTRA_FOLDERS := bt_firmware dsp firmware persist odm
+BOARD_ROOT_EXTRA_FOLDERS := odm
+BOARD_ROOT_EXTRA_SYMLINKS += /$(TARGET_COPY_OUT_VENDOR)/dsp:/dsp
+BOARD_ROOT_EXTRA_SYMLINKS += /$(TARGET_COPY_OUT_VENDOR)/firmware_mnt:/firmware
+BOARD_ROOT_EXTRA_SYMLINKS += /$(TARGET_COPY_OUT_VENDOR)/bt_firmware:/bt_firmware
+BOARD_ROOT_EXTRA_SYMLINKS += /mnt/vendor/persist:/persist
 
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
@@ -66,7 +72,6 @@ TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 # Display
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_USES_COLOR_METADATA := true
-TARGET_USES_GRALLOC1 := true
 TARGET_USES_HWC2 := true
 
 # Audio
@@ -87,7 +92,6 @@ TARGET_NO_RPC := true
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
-BOARD_HAL_STATIC_LIBRARIES += libhealthd.$(TARGET_DEVICE)
 
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
@@ -109,5 +113,13 @@ BUILD_KERNEL := true
 # SELinux
 include device/sony/sepolicy/sepolicy.mk
 
-DEVICE_MANIFEST_FILE := $(COMMON_PATH)/manifest.xml
-DEVICE_MATRIX_FILE   := $(COMMON_PATH)/compatibility_matrix.xml
+DEVICE_MANIFEST_FILE := $(COMMON_PATH)/vintf/manifest.xml
+DEVICE_MATRIX_FILE   := $(COMMON_PATH)/vintf/compatibility_matrix.xml
+
+ifeq ($(PRODUCT_DEVICE_DS),true)
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.radio_ds.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ds.xml
+else
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hw.radio_ss.xml
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/vendor.hw.radio_ss.xml
+endif

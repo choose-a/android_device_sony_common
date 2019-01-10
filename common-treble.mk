@@ -43,12 +43,6 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi@1.1 \
     android.hardware.wifi@1.0-service
 
-# Bluetooth
-PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-impl-qti \
-    android.hardware.bluetooth@1.0-impl \
-    android.hardware.bluetooth@1.0-service
-
 # NFC packages
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.1-impl \
@@ -62,6 +56,14 @@ PRODUCT_PACKAGES += \
 # Light
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.sony
+
+# Health
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.0-service.sony
+# Remove deprecated backup healthd; this can be omitted
+# once healthd is no longer included by default.
+DEVICE_FRAMEWORK_MANIFEST_FILE += \
+    system/libhidl/vintfdata/manifest_healthd_exclude.xml
 
 # Sensors
 PRODUCT_PACKAGES += \
