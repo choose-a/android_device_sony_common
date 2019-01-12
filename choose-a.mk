@@ -38,8 +38,5 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/releasetools/updater.sh:utilities/updater.sh \
     $(COMMON_PATH)/releasetools/README:utilities/README
 
-# twrp
-$(call inherit-product, $(COMMON_PATH)/recovery/twrp.mk)
-
 # choose-a config
 $(call inherit-product, vendor/choose-a/config/common.mk)
