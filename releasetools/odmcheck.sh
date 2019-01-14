@@ -61,14 +61,14 @@ showError() {
     ui_print
     ui_print "https://developer.sony.com/file/download/"
     ui_print "software-binaries-for-aosp-oreo-"
-    ui_print "android-8-1-kernel-${whichoem}"
+    ui_print "android-9-0-kernel-${whichoem}"
     ui_print
-    ui_print "WITHOUT THIS, YOUR DEVICE WILL"
+    ui_print "WITHOUT THIS, YOUR DEVICE MIGHT"
     ui_print "!!!!! NOT BOOT !!!!! NOT BOOT !!!!!"
     ui_print
-    ui_print "NO CHANGES MADE."
-    sleep 5;
-    exit 1;
+    ui_print "DONOT FILE BUGS IF YOU ARE NOT SURE"
+    ui_print "IF YOU ARE USING PROPER OEM BINARIES"
+    sleep 10;
 }
 
 # Check the vendor firmware version flashed on ODM
