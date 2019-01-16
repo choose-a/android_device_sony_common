@@ -24,13 +24,7 @@ TARGET_DIR = os.getenv('OUT')
 UTILITIES_DIR = os.path.join(TARGET_DIR, 'utilities')
 
 def FullOTA_InstallBegin(info):
-  info.output_zip.write(os.path.join(UTILITIES_DIR, "odmcheck.sh"), "odmcheck.sh")
   info.output_zip.write(os.path.join(UTILITIES_DIR, "README"), "README")
-
-  info.script.AppendExtra(
-        ('package_extract_file("odmcheck.sh", "/tmp/odmcheck.sh");\n'))
-
-  info.script.AppendExtra('assert(run_program("/sbin/sh", "/tmp/odmcheck.sh") ==0);')
 
 def FullOTA_InstallEnd(info):
   info.output_zip.write(os.path.join(UTILITIES_DIR, "updater.sh"), "updater.sh")

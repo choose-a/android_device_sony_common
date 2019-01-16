@@ -79,18 +79,18 @@ check_mount() {
 # check partitions
 check_mount /lta-label /dev/block/bootdevice/by-name/LTALabel ext4;
 check_mount /odm /dev/block/bootdevice/by-name/oem ext4;
-
+check_mount /system /dev/block/bootdevice/by-name/system ext4;
 # Check the vendor firmware version flashed on ODM
 expectedoem=$(\
-    getprop ro.odm.expect.version | \
-    sed s/.*_// | \
-    sed s/_.*_// \
+    cat /system/build.prop | \
+    grep ro.odm.expect.version | \
+    sed s/.*=// | \
 );
 
 oemversion=$(\
-    cat /odm/odm_version.prop | \
+    cat /odm/build.prop | \
     grep ro.vendor.version | \
-    sed s/.*=// \
+    sed s/.*=// | \
 );
 
 if [[ "$oemversion" == "$expectedoem" ]]
@@ -118,11 +118,11 @@ variant=$(\
 ui_print "Device variant: ${variant}";
 
 # Set the variant as a prop
-if [ ! -f /odm/build.prop ]
+if [ ! -f /odm/variant.prop ]
 then
-    touch /odm/build.prop;
-    $(echo "ro.sony.variant=${variant}" >> /odm/build.prop);
-    chmod 0644 /odm/build.prop;
+    touch /odm/variant.prop;
+    $(echo "ro.sony.variant=${variant}" >> /odm/variant.prop);
+    chmod 0644 /odm/variant.prop;
 fi
 
 exit 0
