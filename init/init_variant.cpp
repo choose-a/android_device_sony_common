@@ -28,6 +28,10 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <android-base/file.h>
+#include <android-base/logging.h>
+#include <android-base/properties.h>
+
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -38,7 +42,6 @@
 #include <sys/_system_properties.h>
 #include "property_service.h"
 #include "log.h"
-#include "util.h"
 
 
 #include "variants.h"
