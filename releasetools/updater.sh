@@ -84,13 +84,13 @@ check_mount /system /dev/block/bootdevice/by-name/system ext4;
 expectedoem=$(\
     cat /system/build.prop | \
     grep ro.odm.expect.version | \
-    sed s/.*=// | \
+    sed s/.*=// \
 );
 
 oemversion=$(\
     cat /odm/build.prop | \
     grep ro.vendor.version | \
-    sed s/.*=// | \
+    sed s/.*=// \
 );
 
 if [[ "$oemversion" == "$expectedoem" ]]
