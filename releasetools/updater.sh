@@ -89,7 +89,7 @@ expectedoem=$(\
 
 oemversion=$(\
     cat /odm/build.prop | \
-    grep ro.vendor.version | \
+    grep ro.odm.version | \
     sed s/.*=// \
 );
 
